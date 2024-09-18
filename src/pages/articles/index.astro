@@ -5,7 +5,21 @@ import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import { formatDate } from "../../utils";
 
-const allBlogArticles: CollectionEntry<"blog">[] = await getCollection("blog");
+// earlier first
+const allBlogArticles: CollectionEntry<"blog">[] = (
+  await getCollection("blog")
+).sort(
+  (a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
+    b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+// early first
+// const allBlogArticles: CollectionEntry<"blog">[] = (
+//   await getCollection("blog")
+// ).sort(
+//   (a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
+//     a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
+// );
 ---
 
 <MainLayout>
